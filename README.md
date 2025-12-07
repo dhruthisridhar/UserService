@@ -2,6 +2,19 @@
 
 A user management service built with **Java 17** and **Vert.x 5**.
 
+## Prerequisites
+```
+For Local Development
+- Java 17
+- Gradle
+
+For Docker Deployment
+- Docker (installed and running)
+
+For Testing
+- curl or Postman for testing the API
+```
+
 ## Getting Start
 
 ### Build and Run with Docker

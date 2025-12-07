@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.dhruthi.usercrud'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    vertxVersion = '5.0.0.CR2'
+    junitVersion = '5.10.1'
+    slf4jVersion = '2.0.9'
+    logbackVersion = '1.4.14'
+}
+
+dependencies {
+    // Vert.x Core and Web
+    implementation "io.vertx:vertx-core:${vertxVersion}"
+    implementation "io.vertx:vertx-web:${vertxVersion}"
+
+    // Logging
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+
+    // Testing
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+    testImplementation "io.vertx:vertx-junit5:${vertxVersion}"
+    testImplementation "io.vertx:vertx-web-client:${vertxVersion}"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes('Main-Class': 'com.dhruthi.usercrud.Main')
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
